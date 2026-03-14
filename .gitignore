@@ -1,7 +1,8 @@
 # Local drafts
 paper.html
 
-# Prototype scripts (superseded by hl_framework/)
+# Prototype scripts & drafts (superseded by hl_framework/)
+PROFILE_README.md
 embedding-surgery.py
 logits_processor.py
 calc-FHRR-space-algebra.py
