@@ -58,8 +58,7 @@ Standard English BPE tokens are **highly polysemous** — they bleed into neighb
 ├── generate-1k-english-tokens.py     # 1k English token extractor from Llama-3 vocab
 ├── cleanup-hopfield.py          # Continuous Hopfield cleanup drift experiment
 ├── simulate-segfaults.py        # FSM logit mask intervention simulator
-├── distill-structural-data.py   # Unsloth LoRA structural distillation pipeline
-└── paper.html                   # Full research paper
+└── distill-structural-data.py   # Unsloth LoRA structural distillation pipeline
 ```
 
 ## Training Curriculum (5-Stage)
@@ -88,6 +87,10 @@ Standard English BPE tokens are **highly polysemous** — they bleed into neighb
 5. Power, A., et al. (2022). Grokking. arXiv:2201.02177.
 6. Shah, M., et al. (2026). FlashAttention-4. arXiv:2603.05451.
 7. Veličković, P., et al. (2021). Neural Algorithmic Reasoning. Patterns.
+
+## Research Paper
+
+📄 **[The Holographic Language Framework and the Evolution of Attention Mechanisms (PDF)](https://github.com/dparksports/dparksports/raw/main/Holographic-AI-Language-v19.pdf)**
 
 ## License
 
