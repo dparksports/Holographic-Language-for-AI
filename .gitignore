@@ -2,6 +2,7 @@
 paper.html
 
 # Python
+.venv/
 __pycache__/
 *.pyc
 *.pyo
