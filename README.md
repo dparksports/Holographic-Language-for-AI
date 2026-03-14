@@ -2,7 +2,7 @@
 
 **Engineering Deterministic Routing in Continuous Latent Spaces**
 
-*Dan Park — March 2026*
+*Dan Park, magicpoint.ai — March 2026*
 
 ---
 
@@ -50,15 +50,53 @@ Standard English BPE tokens are **highly polysemous** — they bleed into neighb
 ## Repository Structure
 
 ```
-├── embedding-surgery.py         # QR orthogonalization of 50 reserved Llama-3 tokens
-├── logits_processor.py          # FSM-constrained LogitsProcessor (Cognitive Segfault)
-├── calc-FHRR-space-algebra.py   # FHRR complex-phase bind/unbind algebra
-├── calc-triton-hopfield-L2-space.py  # Triton SRAM fused L2 Hopfield kernel
-├── calculate-PR.py              # Participation Ratio covariance experiment
-├── generate-1k-english-tokens.py     # 1k English token extractor from Llama-3 vocab
-├── cleanup-hopfield.py          # Continuous Hopfield cleanup drift experiment
-├── simulate-segfaults.py        # FSM logit mask intervention simulator
-└── distill-structural-data.py   # Unsloth LoRA structural distillation pipeline
+├── hl_framework/                        # Production package
+│   ├── hl_core/
+│   │   ├── surgery.py                   # EmbeddingSurgeon — QR orthogonalization + gradient freeze
+│   │   ├── stargate.py                  # StarGateProcessor — CFG-constrained logit masking
+│   │   ├── fhrr_algebra.py              # FHRRAlgebra — O(d) complex-phase bind/unbind
+│   │   └── hopfield_triton.py           # Triton SRAM L2 Hopfield kernel + CPU fallback
+│   └── experiments/
+│       ├── exp_a_polysemy.py            # Participation Ratio comparison
+│       └── exp_c_drift.py               # 1,000-step drift vs Hopfield stabilization
+│
+├── embedding-surgery.py                 # Prototype: QR orthogonalization
+├── logits_processor.py                  # Prototype: FSM-constrained LogitsProcessor
+├── calc-FHRR-space-algebra.py           # Prototype: FHRR algebra
+├── calc-triton-hopfield-L2-space.py     # Prototype: Triton Hopfield kernel
+├── calculate-PR.py                      # Prototype: Participation Ratio
+├── generate-1k-english-tokens.py        # Prototype: 1k English token extraction
+├── cleanup-hopfield.py                  # Prototype: Hopfield drift experiment
+├── simulate-segfaults.py               # Prototype: FSM intervention simulator
+└── distill-structural-data.py           # Prototype: Unsloth LoRA distillation
+```
+
+## Quickstart
+
+```bash
+# Create venv and install dependencies
+python3 -m venv .venv && source .venv/bin/activate
+pip install torch transformers
+
+# FHRR Algebra (CPU — no GPU required)
+cd hl_framework
+python -c "
+from hl_core.fhrr_algebra import FHRRAlgebra
+alg = FHRRAlgebra(dim=4096, device='cpu')
+a, b = alg.generate_anchor(), alg.generate_anchor()
+bound = alg.bind(a, b)
+recovered = alg.unbind(bound, a)
+print(f'Recovery similarity: {alg.similarity(recovered, b):.4f}')
+"
+
+# Experiment C — Drift comparison (CPU)
+python -m experiments.exp_c_drift
+
+# Experiment A — Participation Ratio (requires Llama-3 weights)
+python -m experiments.exp_a_polysemy
+
+# Embedding Surgery (requires Llama-3 weights + GPU)
+python -m hl_core.surgery
 ```
 
 ## Training Curriculum (5-Stage)
