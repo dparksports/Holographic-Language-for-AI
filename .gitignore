@@ -1,6 +1,17 @@
 # Local drafts
 paper.html
 
+# Prototype scripts (superseded by hl_framework/)
+embedding-surgery.py
+logits_processor.py
+calc-FHRR-space-algebra.py
+calc-triton-hopfield-L2-space.py
+calculate-PR.py
+generate-1k-english-tokens.py
+cleanup-hopfield.py
+simulate-segfaults.py
+distill-structural-data.py
+
 # Python
 .venv/
 __pycache__/
