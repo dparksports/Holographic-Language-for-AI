@@ -112,7 +112,7 @@ python -m hl_core.surgery
 
 ## Hardware Target
 
-- **GPU**: NVIDIA RTX 5090 (32GB VRAM, Blackwell architecture)
+- **GPU**: any NVIDIA Blackwell architecture GPU
 - **Precision**: `torch.bfloat16` for model weights; FP32 for orthogonalization math
 - **Kernel**: OpenAI Triton for SRAM-fused Hopfield cleanup (BLOCK_SIZE=4096)
 
